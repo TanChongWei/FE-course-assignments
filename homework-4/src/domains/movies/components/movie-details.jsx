@@ -14,6 +14,8 @@ export const MovieDetails = ({ movieId }) => {
 
     const { data: activeUser } = useActiveUser();
     const { data: movieComments, loadData } = useMovieComments(movieId);
+    console.log(useActiveUser())
+    console.log(useMovieComments())
 
     const [addCommentRating, setAddCommentRating] = useState(5);
     const [addCommentContent, setAddCommentContent] = useState('');

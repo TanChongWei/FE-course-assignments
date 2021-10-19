@@ -2,7 +2,7 @@ import { MovieItem, useMovies } from '../domains/movies';
 
 
 export const Movies = () => {
-    const {data} = useMovies()
+    const {data, page, setPage} = useMovies()
     console.log("data Items", data)
 
     return (
@@ -15,13 +15,21 @@ export const Movies = () => {
             <div className="bg-gray-50 lg:flex">
                 <div className="flex-1">
                     {data && (
-                        <div className="grid md:grid-cols-2 gap-x-4 gap-y-8 xl:grid-cols-3 xl:gap-x-6">
+                        <div className="grid md:grid-cols-3">
                             {data.map((item) => (
                                 <MovieItem {...item} key={item._id} />
                             ))}
                         </div>
                     )}
                 </div>
+            </div>
+            <div style={{display:"flex", justifyContent:"space-between"}}>
+                <button onClick={() => setPage(page-1)}>
+                    Previous Page
+                </button>
+                <button onClick={() => setPage(page+1)}>
+                    Next Page
+                </button>
             </div>
             {!data && (
                 <div className="p-12 text-center text-3xl">Loading...</div>

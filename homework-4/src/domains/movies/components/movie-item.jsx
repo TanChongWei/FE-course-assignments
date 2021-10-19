@@ -1,5 +1,4 @@
-import { Button } from '../../../components/button';
-import * as React from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Badge = ({ children }) => (
@@ -39,14 +38,12 @@ export const MovieItem = (props) => {
                     </p>
                 </div>
                 <div className="flex flex-col md:flex-row gap-3 py-3">
-                    <Button
-                        variant="primary"
-                        render={() => (
-                            <Link to={`/movies/${_id}`}>
-                                View details for {title}
-                            </Link>
-                        )}
-                    ></Button>
+                <Link
+                to={`/movies/${_id}`}
+                className="text-sm px-4 py-1 text-pink-500 border-2 border-red-500"
+                >
+                View details
+                </Link>
                 </div>
             </div>
         </div>
