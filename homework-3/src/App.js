@@ -1,52 +1,21 @@
 import React from 'react'
-import LoginForm from './LoginForm'
-import getListings from './utils/getListings'
-import addToCart from './helpers/addToCart'
-import CartItem from './components/CartItem'
-import { ListingItem } from './components/ListingItem'
-import { useAuthState } from './utils/authState'
-import { getCartItems } from './utils/getCartItems'
-import './App.css'
+import { useAuth } from './domains/auth'
+import { LoginPage } from './pages/login'
+import { Marketplace } from './pages/marketplace'
 
-export default function App(props) {
-  const {listings} = getListings() 
-  const authState = useAuthState()
-  const cartItems = getCartItems()
+const App = () => {
+  const { status } = useAuth()
+  console.log(status)
+
   return (
-    authState.status === "anon" 
-      ? (
-        <div>
-          <LoginForm onSuccess={(accessToken) => {
-            authState.login(accessToken)}}/>
-        </div>
-      ) 
-      : (
-        <div>
-          <div>
-            {listings.map((l) => (
-              <ListingItem 
-                imageUrl={l.imageUrl}
-                title={l.title}
-                description={l.description}
-                price={l.price}
-                availableStock={l.numOfStock}
-                onAddToCart={
-                  authState.status === 'authenticated'
-                    ? () => addToCart(l._id, authState.accessToken)
-                    : undefined
-                }
-              />
-            ))}
-          </div>
-          <div>
-            {cartItems.map((item) => (
-              <div>
-                <h1>Item</h1>
-                <CartItem />
-              </div>
-            ))}
-          </div>
-        </div>
-      ) 
+    <div>
+      {status === 'authenticated' 
+        ? <Marketplace />
+        : <LoginPage />
+      }
+    </div>
   )
 }
+
+export default App
+
